@@ -65,6 +65,13 @@ void device_clear_color(float red, float green, float blue, float alpha)
   };
 }
 
+// Runtime title updates are currently implemented for the glfw backend only;
+// the cairo backends still receive the initial title via device_init.
+void device_set_title(const char* title)
+{
+  (void)title;
+}
+
 char* device_gl_error()
 {
   return NULL;

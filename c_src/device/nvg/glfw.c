@@ -334,6 +334,14 @@ void device_clear_color(float red,
 }
 
 //---------------------------------------------------------
+// Runs on the main thread: scenic_loop (which dispatches commands) is the
+// main thread, so calling glfwSetWindowTitle directly here is safe.
+void device_set_title(const char* title)
+{
+  glfwSetWindowTitle(g_glfw_data.p_window, title);
+}
+
+//---------------------------------------------------------
 void device_begin_render(driver_data_t* p_data)
 {
   NVGcontext* p_ctx = (NVGcontext*)p_data->v_ctx;

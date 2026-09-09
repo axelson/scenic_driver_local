@@ -117,6 +117,25 @@ void scenic_ops_screenshot(uint32_t* p_msg_length, driver_data_t* p_data)
 }
 
 inline
+void scenic_ops_set_title(uint32_t* p_msg_length, driver_data_t* p_data)
+{
+  if (p_data->debug_mode) {
+    log_info("%s", __func__);
+  }
+
+  uint32_t title_len;
+  read_bytes_down(&title_len, sizeof(uint32_t), p_msg_length);
+
+  char* title = malloc(title_len + 1);
+  read_bytes_down(title, title_len, p_msg_length);
+  title[title_len] = '\0';
+
+  device_set_title(title);
+
+  free(title);
+}
+
+inline
 void scenic_ops_crash()
 {
   receive_crash();
@@ -164,6 +183,9 @@ void dispatch_scenic_ops(uint32_t msg_length, driver_data_t* p_data)
     break;
   case scenic_op_screenshot:
     scenic_ops_screenshot(&msg_length, p_data);
+    break;
+  case scenic_op_set_title:
+    scenic_ops_set_title(&msg_length, p_data);
     break;
   case scenic_op_crash:
     scenic_ops_crash();

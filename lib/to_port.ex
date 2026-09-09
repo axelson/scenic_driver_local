@@ -29,6 +29,7 @@ defmodule Scenic.Driver.Local.ToPort do
   @cmd_restore 0x27
   @cmd_show 0x28
   @cmd_hide 0x29
+  @cmd_set_title 0x2A
 
   @cmd_put_font 0x40
   @cmd_put_img 0x41
@@ -316,6 +317,17 @@ defmodule Scenic.Driver.Local.ToPort do
       <<@cmd_screenshot::unsigned-integer-size(32)-native>>,
       <<byte_size(path)::unsigned-integer-size(32)-native>>,
       path
+    ]
+
+    Port.command(port, msg)
+  end
+
+  @doc false
+  def set_title(title, port) when is_binary(title) do
+    msg = [
+      <<@cmd_set_title::unsigned-integer-size(32)-native>>,
+      <<byte_size(title)::unsigned-integer-size(32)-native>>,
+      title
     ]
 
     Port.command(port, msg)

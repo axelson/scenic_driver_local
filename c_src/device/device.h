@@ -18,4 +18,5 @@ void device_begin_render(driver_data_t* p_data);
 void device_begin_cursor_render(driver_data_t* p_data);
 void device_end_render(driver_data_t* p_data);
 void device_clear_color(float red, float green, float blue, float alpha);
+void device_set_title(const char* title);
 char* device_gl_error();

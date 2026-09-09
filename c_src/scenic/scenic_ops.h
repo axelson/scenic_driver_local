@@ -21,6 +21,8 @@ typedef enum {
 
   scenic_op_screenshot = 0x50,
 
+  scenic_op_set_title = 0x2A,
+
   // scenic_op_query_stats = 0x21,
   // scenic_op_reshap = 0x22,
   // scenic_op_position = 0x23,
@@ -55,6 +57,7 @@ void scenic_ops_quit(driver_data_t* p_data);
 void scenic_ops_put_font(uint32_t* p_msg_length, driver_data_t* p_data);
 void scenic_ops_put_image(uint32_t* p_msg_length, driver_data_t* p_data);
 void scenic_ops_screenshot(uint32_t* p_msg_length, driver_data_t* p_data);
+void scenic_ops_set_title(uint32_t* p_msg_length, driver_data_t* p_data);
 void scenic_ops_crash();
 
 void dispatch_scenic_ops(uint32_t msg_length, driver_data_t* p_data);

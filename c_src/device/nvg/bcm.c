@@ -294,3 +294,9 @@ void device_clear_color(float red,
 {
   glClearColor(red, green, blue, alpha);
 }
+
+// Framebuffer target has no window title; runtime title updates are glfw-only.
+void device_set_title(const char* title)
+{
+  (void)title;
+}

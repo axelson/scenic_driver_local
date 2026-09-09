@@ -192,6 +192,14 @@ defmodule Scenic.Driver.Local do
     Process.send(pid, {:_screenshot_, path}, [])
   end
 
+  @doc "Set the native window title."
+  @spec set_title(driver :: pid | Driver.t(), title :: String.t()) :: :ok
+  def set_title(%Scenic.Driver{pid: pid}, title), do: set_title(pid, title)
+
+  def set_title(pid, title) when is_binary(title) do
+    Process.send(pid, {:_set_title_, title}, [])
+  end
+
   defp put_if_set(opts, key, value)
   defp put_if_set(opts, _key, nil), do: opts
 
@@ -435,6 +443,11 @@ defmodule Scenic.Driver.Local do
 
   def handle_info({:_screenshot_, path}, driver) do
     {:ok, driver} = Callbacks.screenshot(path, driver)
+    {:noreply, driver}
+  end
+
+  def handle_info({:_set_title_, title}, %{assigns: %{port: port}} = driver) do
+    ToPort.set_title(title, port)
     {:noreply, driver}
   end
 
